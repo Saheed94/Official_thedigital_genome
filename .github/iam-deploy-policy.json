@@ -7,7 +7,7 @@
       "Action": [
         "s3:ListBucket"
       ],
-      "Resource": "arn:aws:s3:::YOUR_BUCKET_NAME"
+      "Resource": "arn:aws:s3:::thedigitalgenome-471112990922-us-east-1-an"
     },
     {
       "Sid": "WriteSiteObjects",
@@ -17,7 +17,7 @@
         "s3:PutObject",
         "s3:DeleteObject"
       ],
-      "Resource": "arn:aws:s3:::YOUR_BUCKET_NAME/*"
+      "Resource": "arn:aws:s3:::thedigitalgenome-471112990922-us-east-1-an/*"
     },
     {
       "Sid": "InvalidateCloudFront",
@@ -27,7 +27,7 @@
         "cloudfront:GetInvalidation",
         "cloudfront:ListInvalidations"
       ],
-      "Resource": "arn:aws:cloudfront::YOUR_ACCOUNT_ID:distribution/YOUR_DISTRIBUTION_ID"
+      "Resource": "arn:aws:cloudfront::471112990922:distribution/EVOXUTG7L53KN"
     }
   ]
 }
