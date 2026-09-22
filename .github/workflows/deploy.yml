@@ -1,0 +1,85 @@
+# Deploy the static site to S3 and refresh CloudFront.
+#
+# Required GitHub Actions secrets (Settings ? Secrets and variables ? Actions):
+#   AWS_ACCESS_KEY_ID
+#   AWS_SECRET_ACCESS_KEY
+#   AWS_REGION                  e.g. us-east-1
+#   AWS_S3_BUCKET               the bucket that CloudFront uses as origin
+#   CLOUDFRONT_DISTRIBUTION_ID  from the CloudFront console
+#
+# Attach .github/iam-deploy-policy.json to the IAM user (replace the placeholders).
+#
+# Automatic deploys run on push to main. Use "Run workflow" to deploy
+# the current branch (for example dev) without merging.
+
+name: Deploy to S3 and CloudFront
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-cloudfront
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Deploy site
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Stage site files
+        run: |
+          mkdir -p dist
+          cp index.html styles.css script.js dist/
+          cp -R assets dist/assets
+          if [ -f robots.txt ]; then cp robots.txt dist/; fi
+          if [ -f sitemap.xml ]; then cp sitemap.xml dist/; fi
+          find dist -name '.DS_Store' -delete
+
+      - name: Sync to S3
+        run: |
+          aws s3 sync dist "s3://${{ secrets.AWS_S3_BUCKET }}" \
+            --delete \
+            --exclude '.DS_Store' \
+            --cache-control 'public, max-age=300'
+
+          # Keep HTML and crawler files from being cached too long.
+          aws s3 cp dist/index.html "s3://${{ secrets.AWS_S3_BUCKET }}/index.html" \
+            --cache-control 'public, max-age=0, must-revalidate' \
+            --content-type 'text/html; charset=utf-8'
+          if [ -f dist/robots.txt ]; then
+            aws s3 cp dist/robots.txt "s3://${{ secrets.AWS_S3_BUCKET }}/robots.txt" \
+              --cache-control 'public, max-age=0, must-revalidate' \
+              --content-type 'text/plain'
+          fi
+          if [ -f dist/sitemap.xml ]; then
+            aws s3 cp dist/sitemap.xml "s3://${{ secrets.AWS_S3_BUCKET }}/sitemap.xml" \
+              --cache-control 'public, max-age=0, must-revalidate' \
+              --content-type 'application/xml'
+          fi
+
+      - name: Invalidate CloudFront
+        run: |
+          INVALIDATION_ID=$(aws cloudfront create-invalidation \
+            --distribution-id "${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}" \
+            --paths '/*' \
+            --query 'Invalidation.Id' \
+            --output text)
+          echo "Invalidation ${INVALIDATION_ID} created"
+          aws cloudfront wait invalidation-completed \
+            --distribution-id "${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}" \
+            --id "${INVALIDATION_ID}"
+          echo "CloudFront cache refresh complete"
