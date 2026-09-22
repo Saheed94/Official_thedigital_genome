@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Digital Genome</title>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon.png">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<!-- DNA BACKGROUND -->
+<div class="dna-bg"></div>
+
+
+<!-- ===================== HEADER ===================== -->
+<header>
+  <div class="logo-container">
+    <img src="assets/logo.png" alt="The Digital Genome Logo" class="logo">
+    <h1>The Digital Genome</h1>
+  </div>
+
+  <!-- Hamburger (visible on mobile) -->
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <nav id="mainNav">
+    <a href="#">Home</a>
+    <a href="#about">About Us</a>
+    <a href="#services">Services</a>
+    <a href="#training">Training</a>
+    <!-- <a href="#tutors">Tutors</a> -->
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <h2>Powering the Future of Genomics</h2>
+  <p>Professional bioinformatics training and advanced genomic data analysis services for researchers, students, and organizations.</p>
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSeM6JYF8nSxvh7Hn9MH2OHr9ZGPhHXYiKcsJV2UUH4FBgPnug/viewform?usp=publish-editor" target="_blank" class="hero-btn">Enquire Now</a>
+</section>
+
+
+<!-- ===================== STATS BAR ===================== -->
+<section class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <span class="stat-number" data-target="100">0</span><span class="stat-suffix">+</span>
+      <span class="stat-label">Students Trained</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <span class="stat-number" data-target="3">0</span>
+      <span class="stat-label">Training Programs</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <span class="stat-number" data-target="5">0</span>
+      <span class="stat-label">Expert Tutors</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <span class="stat-number" data-target="100">0</span><span class="stat-suffix">%</span>
+      <span class="stat-label">Hands-on Learning</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================== ABOUT ===================== -->
+<section id="about" class="about-section">
+  <div class="about-container">
+
+    <h2>About Us</h2>
+
+    <p>
+      <strong>The Digital Genome</strong> is a forward-thinking bioinformatics and computational biology platform
+      dedicated to unlocking the power of genomic data. We specialize in providing hands-on training and expert services
+      in bioinformatics and genomic data analysis, training students and professionals in the latest techniques 
+      and transforming complex biological information into meaningful insights that drive innovation in healthcare, research, and biotechnology.
+    </p>
+
+    <p>
+      Our work sits at the intersection of biology and computational science, helping clients understand genetic structures, 
+      molecular interactions, and disease mechanisms. We are committed to advancing research, healthcare, and biotechnology 
+      innovation through accurate analyses and efficient, scalable workflows.
+    </p>
+
+    <div class="about-highlights">
+
+      <div class="highlight">
+        <h3>Our Mission</h3>
+        <p>To empower researchers and organizations with practical genomic insights that support discoveries advancing research and improving human health.</p>
+      </div>
+
+      <div class="highlight">
+        <h3>Our Vision</h3>
+        <p>To be a trusted partner in computational genomics, enabling advancements in medicine, research, and biotechnology through actionable data.</p>
+      </div>
+
+      <div class="highlight">
+        <h3>Our Approach</h3>
+        <p>We focus on hands-on training and tailored genomic analysis to transform raw data into clear, actionable, and easy-to-understand results, using proven bioinformatics techniques and streamlined workflows.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ===================== EXPERTISE ===================== -->
+<section class="section">
+  <h2>Our Expertise</h2>
+
+  <div style="max-width:850px; margin:0 auto; text-align:center; color:#1e293b; line-height:1.7;">
+    <p>
+      We specialize in training, analysis and interpretation of large-scale genomic data to identify genetic variations,
+      disease markers, and biological patterns that support advanced research and precision medicine.
+    </p>
+    <p>
+      Our team applies computational biology techniques to solve complex biological problems, integrating data science,
+      molecular biology, and machine learning to accelerate scientific discovery.
+    </p>
+    <p>
+      We deliver high-accuracy sequencing analysis, transforming raw DNA data into actionable insights for research,
+      diagnostics, and biotechnology innovation.
+    </p>
+  </div>
+
+  <div class="images">
+    <img src="assets/image_1.png" alt="A man sitting at a screen analyzing genomic data">
+    <img src="assets/image_2.png" alt="Bioinformatics classroom training session">
+    <img src="assets/image_3.png" alt="DNA Sequencing Analysis">
+  </div>
+</section>
+
+
+<!-- ===================== SERVICES ===================== -->
+<section id="services" class="section">
+  <h2>Our Services</h2>
+
+  <div class="services-wrapper">
+    <div class="scroll-arrow arrow-left" onclick="scrollServices(-320)" aria-label="Scroll left">
+      <i class="fas fa-chevron-left"></i>
+    </div>
+
+    <div class="scroll-container" id="serviceScroll">
+
+      <div class="card">
+        <h3>Population Genomics</h3>
+        <ul style="padding-left:18px; color:#475569; line-height:1.7;">
+          <li>Diversity Analysis (&pi;)</li>
+          <li>Tajima&rsquo;s D Neutrality Tests</li>
+          <li><em>F</em><sub>ST</sub> &amp; Population Structure</li>
+          <li>Linkage Disequilibrium (LD)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Genomics</h3>
+        <ul style="padding-left:18px; color:#475569; line-height:1.7;">
+          <li>Variant Calling &amp; Annotation</li>
+          <li>Whole Genome &amp; Exome Analysis</li>
+          <li>Sequence Alignment &amp; QC</li>
+          <li>Comparative Genomics</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Transcriptomics</h3>
+        <ul style="padding-left:18px; color:#475569; line-height:1.7;">
+          <li>RNA-Seq Data Analysis</li>
+          <li>Differential Gene Expression</li>
+          <li>Functional Enrichment Analysis</li>
+          <li>Pathway Topology Analysis</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Computer Aided Drug Discovery</h3>
+        <ul style="padding-left:18px; color:#475569; line-height:1.7;">
+          <li>Molecular Docking &amp; Virtual Screening</li>
+          <li>Pharmacophore Modeling &amp; Mapping</li>
+          <li>ADMET Properties Prediction</li>
+          <li>Molecular Dynamics Simulations</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Epigenetics</h3>
+        <ul style="padding-left:18px; color:#475569; line-height:1.7;">
+          <li>DNA Methylation Analysis</li>
+          <li>Chromatin Accessibility (ATAC-Seq)</li>
+          <li>Histone Modification Studies</li>
+          <li>Epigenome-Wide Studies</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Machine Learning</h3>
+        <ul style="padding-left:18px; color:#475569; line-height:1.7;">
+          <li>Predictive Genomics Models</li>
+          <li>Disease Classification</li>
+          <li>Data-Driven Biological Insights</li>
+          <li>Biomarker Identification</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="scroll-arrow arrow-right" onclick="scrollServices(320)" aria-label="Scroll right">
+      <i class="fas fa-chevron-right"></i>
+    </div>
+  </div>
+
+  <div class="service-disclaimer">
+    <i class="fas fa-info-circle"></i> <strong>Note on Fees:</strong> 
+    Service fees are customized based on the required analysis complexity, sample size, and expected delivery time.
+    <br><br>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdUFbPHP4sgc42aYOGHmbiq11F_pyQafDCKIEdkYEcNMDw9bg/viewform?usp=publish-editor" class="btn" style="padding: 8px 15px; font-size: 13px;">Request a quote</a>
+  </div>
+</section>
+
+
+<!-- ===================== TRAINING ===================== -->
+<section id="training" class="section training-section">
+  <h2>Training Programs</h2>
+  <p class="training-subtitle">Choose a program that fits your level. Click a card to explore the full curriculum.</p>
+
+  <div class="announcement-bar">
+    <i class="fas fa-calendar-alt"></i> <strong>Next Cohort:</strong> 1st week of November &nbsp;|&nbsp;
+    <i class="fas fa-gift"></i> <strong>Referral Bonus:</strong> Get 5% off for every student you refer!
+  </div>
+
+  <!-- ACCORDION GRID -->
+  <div class="training-grid">
+
+    <!-- BEGINNER -->
+    <div class="tp-card" data-tier="beginner">
+      <button class="tp-header" aria-expanded="false">
+        <div class="tp-header-top">
+          <span class="tp-tier-badge tp-badge-beginner">Beginner</span>
+          <span class="tp-cert-badge"><i class="fas fa-certificate"></i> Certificate Included</span>
+        </div>
+        <div class="tp-header-meta">
+          <span class="tp-duration"><i class="fas fa-clock"></i> 4 Weeks</span>
+          <!-- <span class="tp-price">$150</span> -->
+        </div>
+        <div class="tp-toggle-icon" aria-hidden="true">
+          <!-- <i class="fas fa-plus"></i> -->
+        </div>
+      </button>
+
+      <div class="tp-body">
+        <div class="tp-body-inner">
+          <p class="tp-description">A solid foundation for anyone new to bioinformatics — no prior coding experience required.</p>
+          <ul class="tp-curriculum">
+            <li><i class="fas fa-check-circle"></i> Introduction to Bioinformatics</li>
+            <li><i class="fas fa-check-circle"></i> Basic Genomics Concepts</li>
+            <li><i class="fas fa-check-circle"></i> Linux Command Line Fundamentals</li>
+            <li><i class="fas fa-check-circle"></i> Data Handling &amp; File Formats (FASTA, FASTQ)</li>
+            <li><i class="fas fa-check-circle"></i> Quality Control &amp; Trimming</li>
+            <li><i class="fas fa-check-circle"></i> Introduction to NCBI &amp; Bioinformatics Databases</li>
+          </ul>
+          <div class="tp-actions">
+            <a href="assets/pdfs/beginner-curriculum.pdf" download="The-Digital-Genome-Beginner-Curriculum.pdf" class="tp-pdf-link">
+              <i class="fas fa-file-pdf"></i> Download Beginner Curriculum PDF
+            </a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeM6JYF8nSxvh7Hn9MH2OHr9ZGPhHXYiKcsJV2UUH4FBgPnug/viewform?usp=publish-editor" target="_blank" class="btn tp-enroll-btn">Enroll Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INTERMEDIATE -->
+    <div class="tp-card tp-card-featured" data-tier="intermediate">
+      <div class="tp-popular-tag">Most Popular</div>
+      <button class="tp-header" aria-expanded="false">
+        <div class="tp-header-top">
+          <span class="tp-tier-badge tp-badge-intermediate">Intermediate</span>
+          <span class="tp-cert-badge"><i class="fas fa-certificate"></i> Certificate Included</span>
+        </div>
+        <div class="tp-header-meta">
+          <span class="tp-duration"><i class="fas fa-clock"></i> 8 Weeks</span>
+          <!-- <span class="tp-price">$250</span> -->
+        </div>
+        <div class="tp-toggle-icon" aria-hidden="true">
+          <i class="fas fa-plus"></i>
+        </div>
+      </button>
+
+      <div class="tp-body">
+        <div class="tp-body-inner">
+          <p class="tp-description">Deepen your skills with hands-on NGS analysis, scripting, and automated workflows.</p>
+          <ul class="tp-curriculum">
+            <li><i class="fas fa-check-circle"></i> Next-Generation Sequencing (NGS)</li>
+            <li><i class="fas fa-check-circle"></i> RNA-Seq Analysis</li>
+            <li><i class="fas fa-check-circle"></i> Python &amp; R for Bioinformatics</li>
+            <li><i class="fas fa-check-circle"></i> Workflow Automation &amp; Pipelines</li>
+            <li><i class="fas fa-check-circle"></i> Differential Gene Expression Analysis</li>
+            <li><i class="fas fa-check-circle"></i> Functional Enrichment &amp; Pathway Analysis</li>
+          </ul>
+          <div class="tp-actions">
+            <a href="assets/pdfs/intermediate-curriculum.pdf" download="The-Digital-Genome-Intermediate-Curriculum.pdf" class="tp-pdf-link">
+              <i class="fas fa-file-pdf"></i> Download Intermediate Curriculum PDF
+            </a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeM6JYF8nSxvh7Hn9MH2OHr9ZGPhHXYiKcsJV2UUH4FBgPnug/viewform?usp=publish-editor" target="_blank" class="btn tp-enroll-btn">Enroll Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADVANCED -->
+    <div class="tp-card" data-tier="advanced">
+      <button class="tp-header" aria-expanded="false">
+        <div class="tp-header-top">
+          <span class="tp-tier-badge tp-badge-advanced">Advanced</span>
+          <span class="tp-cert-badge"><i class="fas fa-certificate"></i> Certificate Included</span>
+        </div>
+        <div class="tp-header-meta">
+          <span class="tp-duration"><i class="fas fa-clock"></i> 6 Months</span>
+          <!-- <span class="tp-price">$700</span> -->
+        </div>
+        <div class="tp-toggle-icon" aria-hidden="true">
+          <i class="fas fa-plus"></i>
+        </div>
+      </button>
+
+      <div class="tp-body">
+        <div class="tp-body-inner">
+          <p class="tp-description">A comprehensive in-depth program for researchers ready to tackle large-scale genomics and machine learning.</p>
+          <ul class="tp-curriculum">
+            <li><i class="fas fa-check-circle"></i> Genome-Wide Association Studies (GWAS)</li>
+            <li><i class="fas fa-check-circle"></i> Machine Learning in Genomics</li>
+            <li><i class="fas fa-check-circle"></i> Advanced Linux &amp; HPC Computing</li>
+            <li><i class="fas fa-check-circle"></i> Scalable Bioinformatics Pipelines</li>
+            <li><i class="fas fa-check-circle"></i> Population Genomics &amp; Structural Variants</li>
+            <li><i class="fas fa-check-circle"></i> Research Project &amp; Mentorship</li>
+          </ul>
+          <div class="tp-actions">
+            <a href="assets/pdfs/advanced-curriculum.pdf" download="The-Digital-Genome-Advanced-Curriculum.pdf" class="tp-pdf-link">
+              <i class="fas fa-file-pdf"></i> Download Advanced Curriculum PDF
+            </a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeM6JYF8nSxvh7Hn9MH2OHr9ZGPhHXYiKcsJV2UUH4FBgPnug/viewform?usp=publish-editor" target="_blank" class="btn tp-enroll-btn">Enroll Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /.training-grid -->
+</section>
+
+
+<!-- ===================== CONTACT ===================== -->
+<section id="contact" class="contact-section">
+  <h2>Contact Us</h2>
+
+  <form action="https://formspree.io/f/mwvwwzvg" method="POST">
+    <input type="text"  name="name"    placeholder="Your Name"    required>
+    <input type="email" name="email"   placeholder="Your Email"   required>
+    <textarea           name="message" placeholder="Your Message" required></textarea>
+    <button type="submit" class="btn">Send Message</button>
+  </form>
+
+  <div class="contact-info">
+    <p>
+      <i class="fas fa-phone" style="color: green;"></i> +2348030626776 | 
+      <i class="fas fa-envelope" style="color: red;"></i> support@thedigitalgenome.com
+    </p>
+    <!-- <p>
+      <i class="fas fa-map-marker-alt" style="color:#007BFF;"></i>
+      <a href="https://www.google.com/maps?q=7.23790333530897,5.239992808680375" target="_blank">
+        Dept of Biotechnology and Molecular Parasitology,<br>
+        University of Medical Sciences, Ilaje Ondo State, Nigeria
+      </a>
+    </p> -->
+    <!-- <div style="margin-top:15px;">
+      <div class="map-lazy-wrapper" data-src="https://www.google.com/maps?q=7.23790333530897,5.239992808680375&output=embed">
+        <div class="map-placeholder">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>Map loading…</span>
+        </div>
+        <iframe
+          data-src="https://www.google.com/maps?q=7.23790333530897,5.239992808680375&output=embed"
+          width="100%"
+          height="250"
+          style="border:0; border-radius:10px; display:none;"
+          allowfullscreen=""
+          loading="lazy"
+          title="The Digital Genome location map">
+        </iframe>
+      </div>
+    </div> -->
+    <a href="https://wa.me/2348030626776?text=Hello%20I%20am%20interested%20in%20your%20bioinformatics%20training" 
+       class="btn" style="margin-top: 15px; display: inline-block;">
+      <i class="fab fa-whatsapp" style="color: #25D366;"></i> WhatsApp Us
+    </a>
+  </div>
+</section>
+
+
+<!-- ===================== TUTORS =====================
+<section id="tutors" class="section">
+  <h2>Meet Our Expert Tutors</h2>
+
+  <div class="tutor-wrapper">
+    <div class="scroll-arrow arrow-left" onclick="scrollTutors(-310)" aria-label="Scroll left">
+      <i class="fas fa-chevron-left"></i>
+    </div>
+
+    <div class="tutor-scroll-container" id="tutorScroll">
+
+      <div class="tutor-card">
+        <div class="tutor-img"></div>
+        <h4>Dr. Mary Oboh</h4>
+        <span class="tutor-role">Co-founder &amp; Chief Scientist</span>
+        <p class="tutor-bio">Assistant Professor at Bowdoin College (USA) and ARISE Fellow. Ph.D. in Molecular Parasitology with a distinction in Bioinformatics.</p>
+      </div>
+
+      <div class="tutor-card">
+        <div class="tutor-img"></div>
+        <h4>Halima Abdulsalam</h4>
+        <span class="tutor-role">Co-founder &amp; Lead Bioinformatician</span>
+        <p class="tutor-bio">M.Sc. in Bioinformatics from the University of Nottingham. 5+ years of expertise in large-scale genomic data analysis.</p>
+      </div>
+
+      <div class="tutor-card">
+        <div class="tutor-img"></div>
+        <h4>Kaothar O. Lambe</h4>
+        <span class="tutor-role">Molecular Biology Lead</span>
+        <p class="tutor-bio">Lecturer at Yabatech and PhD Fellow at UNIMED. Specializes in Cellular Parasitology and Molecular Biology education.</p>
+      </div>
+
+      <div class="tutor-card">
+        <div class="tutor-img"></div>
+        <h4>Adeloye F. Emmanuel</h4>
+        <span class="tutor-role">Genomics Research Fellow</span>
+        <p class="tutor-bio">PhD Research Fellow at UNIMED with an M.Sc. from Redeemer's University. Expert in molecular biology and genomics research.</p>
+      </div>
+
+      <div class="tutor-card">
+        <div class="tutor-img"></div>
+        <h4>Samuel Osunnaya</h4>
+        <span class="tutor-role">CADD Specialist</span>
+        <p class="tutor-bio">Research Assistant at NIMR. Expert in Computer-Aided Drug Discovery and high-throughput genomic analysis.</p>
+      </div>
+
+    </div>
+
+    <div class="scroll-arrow arrow-right" onclick="scrollTutors(310)" aria-label="Scroll right">
+      <i class="fas fa-chevron-right"></i>
+    </div>
+  </div>
+</section> -->
+
+
+<!-- ===================== TESTIMONIALS ===================== -->
+<section id="testimonials" class="testimonials">
+  <h2>What Our Students Say</h2>
+  <p style="text-align:center; max-width:600px; margin:0 auto 8px; color:#475569;">
+    Join hundreds of researchers and students who have advanced their careers through our specialized bioinformatics training.
+  </p>
+
+  <div class="testimonial-grid">
+
+    <div class="testimonial-card">
+      <p class="testimonial-text">"The Digital Genome's RNA-Seq training was a game-changer for my PhD research. The hands-on approach to Linux and R made complex data feel manageable."</p>
+      <div class="student-info">
+        <div>
+          <p class="student-name">Sarah Olusegun</p>
+          <span class="course-tag">Intermediate NGS Program</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <p class="testimonial-text">"I started with zero coding knowledge. The instructors at The Digital Genome are patient and the curriculum is very well structured for beginners."</p>
+      <div class="student-info">
+        <div>
+          <p class="student-name">Samuel Ikenna</p>
+          <span class="course-tag">Beginner Bioinformatics</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <p class="testimonial-text">"The Intermediate program significantly strengthened my practical skills in RNA-Seq analysis and bioinformatics workflows."</p>
+      <div class="student-info">
+        <div>
+          <p class="student-name">Mufeedah Adewale</p>
+          <span class="course-tag">Intermediate NGS Program</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ===================== FAQ ===================== -->
+<section id="faq" class="section faq-section">
+  <h2>Frequently Asked Questions</h2>
+  <p class="faq-subtitle">Everything you need to know before enrolling.</p>
+
+  <div class="faq-list">
+
+    <div class="faq-item">
+      <button class="faq-header" aria-expanded="false">
+        <span>Do I need prior coding experience to enroll?</span>
+        <i class="fas fa-chevron-down faq-icon"></i>
+      </button>
+      <div class="faq-body">
+        <div class="faq-body-inner">
+          No prior coding experience is required for the Beginner program. We start from the absolute basics — Linux command line, genomics concepts, and file formats, so anyone with a biology background can follow along comfortably.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-header" aria-expanded="false">
+        <span>Are the classes online or in-person?</span>
+        <i class="fas fa-chevron-down faq-icon"></i>
+      </button>
+      <div class="faq-body">
+        <div class="faq-body-inner">
+          We are currently not offering in-person classes, but we are actively working toward making them available in the near future. At this time, we offer online (live virtual sessions) as our primary format. Online students receive access to recorded sessions, live Q&A, and a dedicated support channel.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-header" aria-expanded="false">
+        <span>What certificate will I receive?</span>
+        <i class="fas fa-chevron-down faq-icon"></i>
+      </button>
+      <div class="faq-body">
+        <div class="faq-body-inner">
+          Upon successful completion of any program, you will receive a digital certificate from The Digital Genome, signed by the instructors. The certificate includes your name, program level, and completion date, it is suitable for LinkedIn and academic portfolios.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-header" aria-expanded="false">
+        <span>Is there a payment plan available?</span>
+        <i class="fas fa-chevron-down faq-icon"></i>
+      </button>
+      <div class="faq-body">
+        <div class="faq-body-inner">
+          Yes. We offer flexible payment plans for all programs. You can pay in installments spread across the duration of the course. Please reach out via WhatsApp or the contact form to discuss a plan that works for you.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-header" aria-expanded="false">
+        <span>Can I upgrade from Beginner to Intermediate?</span>
+        <i class="fas fa-chevron-down faq-icon"></i>
+      </button>
+      <div class="faq-body">
+        <div class="faq-body-inner">
+          Absolutely. Many of our students start at the Beginner level and progress upward. Alumni receive a discount on the next tier, contact us for details on the alumni upgrade pricing.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-header" aria-expanded="false">
+        <span>How do I get the referral discount?</span>
+        <i class="fas fa-chevron-down faq-icon"></i>
+      </button>
+      <div class="faq-body">
+        <div class="faq-body-inner">
+          Simply have your referred student mention your name when they enroll. Once their enrollment is confirmed, a 5% discount will be applied to your next payment or carried forward if you are already fully paid.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ===================== BLOG ===================== -->
+<section class="section">
+  <h2>Our Blog &amp; Resources</h2>
+  <p style="text-align:center; max-width:650px; margin:0 auto 24px; color:#475569; line-height:1.7;">
+    Explore the latest insights, tutorials, and research updates in bioinformatics and genomics from The Digital Genome blog.
+  </p>
+  <div style="text-align:center; display:flex; flex-wrap:wrap; gap:12px; justify-content:center;">
+    <a href="https://thedigitalgenome.wordpress.com/" target="_blank" class="btn">Visit Our Blog</a>
+    <a href="https://www.youtube.com/@thedigitalgenome/" target="_blank" class="btn youtube-btn">
+      <i class="fa-brands fa-youtube"></i> YouTube
+    </a>
+  </div>
+</section>
+
+
+<!-- ===================== FLOATING BUTTONS ===================== -->
+
+<!-- WhatsApp Floating Button -->
+<a href="https://wa.me/2348030626776?text=Hello%20I%20am%20interested%20in%20your%20bioinformatics%20training"
+   class="fab-whatsapp" target="_blank" aria-label="Chat on WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- Scroll-to-top Button -->
+<button class="fab-top" id="scrollTop" aria-label="Scroll to top">
+  <i class="fas fa-chevron-up"></i>
+</button>
+
+<!-- Sticky Enroll CTA (appears after scrolling past hero) -->
+<div class="sticky-enroll" id="stickyEnroll">
+  <div class="sticky-enroll-inner">
+    <span><i class="fas fa-calendar-alt"></i> Next Cohort: 1st week of November 2026</span>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeM6JYF8nSxvh7Hn9MH2OHr9ZGPhHXYiKcsJV2UUH4FBgPnug/viewform?usp=publish-editor"
+       target="_blank" class="btn sticky-enroll-btn">Enroll Now</a>
+  </div>
+</div>
+
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <p>&copy; 2026 The Digital Genome</p>
+</footer>
+
+<!-- JavaScript -->
+<script src="script.js"></script>
+
+</body>
+</html>
