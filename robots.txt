@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://thedigitalgenome.com/sitemap.xml
