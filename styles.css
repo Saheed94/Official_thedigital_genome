@@ -589,7 +589,7 @@ textarea {
 }
 
 /* ==============================================
-   TRAINING ACCORDION — SaaS Card System
+   TRAINING PROGRAMS — Card System
    ============================================== */
 
 .training-section {
@@ -642,12 +642,6 @@ textarea {
   transform: translateY(-3px);
 }
 
-/* Open state */
-.tp-card.is-open {
-  border-color: #0369a1;
-  box-shadow: 0 8px 32px rgba(3, 105, 161, 0.18);
-}
-
 /* Featured (Intermediate) */
 .tp-card-featured {
   border-color: #0369a1;
@@ -668,22 +662,16 @@ textarea {
   border-bottom-left-radius: 10px;
 }
 
-/* ---- Header Button ---- */
+/* ---- Card Header ---- */
 .tp-header {
   width: 100%;
   background: none;
   border: none;
   padding: 22px 20px 20px;
-  cursor: pointer;
   text-align: left;
   display: flex;
   flex-direction: column;
   gap: 12px;
-}
-
-.tp-header:focus-visible {
-  outline: 2px solid #0369a1;
-  outline-offset: -2px;
 }
 
 .tp-header-top {
@@ -723,8 +711,6 @@ textarea {
   white-space: nowrap;
 }
 
-/* Duration + Price row */
-/* Duration + Price + Toggle in one row — no overlap possible */
 .tp-header-meta {
   display: flex;
   align-items: center;
@@ -738,50 +724,11 @@ textarea {
   display: flex;
   align-items: center;
   gap: 6px;
-  flex: 1; /* pushes price & icon to the right */
 }
 
-.tp-price {
-  font-size: 20px;
-  font-weight: 800;
-  color: #0369a1;
-  letter-spacing: -0.02em;
-  background: #e0f2fe;
-  padding: 4px 14px;
-  border-radius: 8px;
-  white-space: nowrap;
-}
-
-/* +/× toggle icon — sits after price, never overlaps */
-.tp-toggle-icon {
-  width: 28px;
-  height: 28px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  background: #f1f5f9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #0369a1;
-  font-size: 13px;
-  transition: background 0.25s, transform 0.35s;
-}
-
-.tp-card.is-open .tp-toggle-icon {
-  background: #0369a1;
-  color: #fff;
-  transform: rotate(45deg); /* + → × */
-}
-
-/* ---- Accordion Body ---- */
+/* ---- Card Body (always visible) ---- */
 .tp-body {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.42s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.tp-card.is-open .tp-body {
-  max-height: 600px; /* large enough for content */
+  overflow: visible;
 }
 
 .tp-body-inner {
