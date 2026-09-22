@@ -56,27 +56,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-/* ---- Training Accordion ---- */
-(function () {
-  const cards = document.querySelectorAll('.tp-card');
-  cards.forEach(card => {
-    const btn = card.querySelector('.tp-header');
-    if (!btn) return;
-    btn.addEventListener('click', () => {
-      const isAlreadyOpen = card.classList.contains('is-open');
-      cards.forEach(c => {
-        c.classList.remove('is-open');
-        const b = c.querySelector('.tp-header');
-        if (b) b.setAttribute('aria-expanded', 'false');
-      });
-      if (!isAlreadyOpen) {
-        card.classList.add('is-open');
-        btn.setAttribute('aria-expanded', 'true');
-      }
-    });
-  });
-})();
-
 /* ---- FAQ Accordion ---- */
 (function () {
   const items = document.querySelectorAll('.faq-item');
