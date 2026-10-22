@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Make Payment � The Digital Genome</title>
+  <meta name="description" content="Pay for The Digital Genome bioinformatics training programmes. Beginner, Intermediate, and Advanced." />
+  <meta name="robots" content="noindex" />
+  <link rel="canonical" href="https://pay.thedigitalgenome.com/" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="icon" type="image/png" href="https://thedigitalgenome.com/assets/favicon.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header class="pay-header">
+    <a class="pay-brand" href="https://thedigitalgenome.com/">
+      <img src="https://thedigitalgenome.com/assets/logo.png" alt="The Digital Genome" class="pay-logo" />
+      <span>The Digital Genome</span>
+    </a>
+    <a class="pay-back" href="https://thedigitalgenome.com/">? Back to main site</a>
+  </header>
+
+  <main class="pay-main">
+    <section class="pay-hero">
+      <h1>Make a payment</h1>
+      <p>
+        Choose a Bioinformatics Training Programme below. Enrolment is confirmed only after successful payment.
+        Questions? Email <a href="mailto:support@thedigitalgenome.com">support@thedigitalgenome.com</a>
+        or use WhatsApp on the <a href="https://thedigitalgenome.com/#contact">main site</a> � do not send card details by email or chat.
+      </p>
+    </section>
+
+    <section class="pay-programmes" aria-label="Training programmes">
+      <!-- BEGINNER -->
+      <article class="pay-card" data-programme="beginner">
+        <div class="pay-card-top">
+          <span class="pay-badge pay-badge-beginner">Beginner</span>
+          <span class="pay-cert"><i class="fas fa-certificate"></i> Certificate included</span>
+        </div>
+        <h2>Beginner Programme</h2>
+        <p class="pay-meta"><i class="fas fa-clock"></i> 4 weeks</p>
+        <p class="pay-price">$100 <span>USD</span></p>
+        <p class="pay-desc">
+          For individuals new to bioinformatics or building a strong foundation: biology and genomics basics,
+          Linux and the command line, introduction to Python, and biological file formats.
+        </p>
+        <label class="pay-email-label" for="email-beginner">Email for receipt</label>
+        <input id="email-beginner" class="pay-email" type="email" name="email" autocomplete="email" placeholder="you@example.com" required />
+        <button type="button" class="pay-btn" data-programme="beginner" disabled>
+          Pay $100
+        </button>
+        <p class="pay-btn-hint">Payment will be enabled after the backend is connected (Step 2).</p>
+      </article>
+
+      <!-- INTERMEDIATE -->
+      <article class="pay-card pay-card-featured" data-programme="intermediate">
+        <div class="pay-popular">Most popular</div>
+        <div class="pay-card-top">
+          <span class="pay-badge pay-badge-intermediate">Intermediate</span>
+          <span class="pay-cert"><i class="fas fa-certificate"></i> Certificate included</span>
+        </div>
+        <h2>Intermediate Programme</h2>
+        <p class="pay-meta"><i class="fas fa-clock"></i> 8 weeks</p>
+        <p class="pay-price">$250 <span>USD</span></p>
+        <p class="pay-desc">
+          For learners with foundational bioinformatics knowledge who want to strengthen practical analytical skills.
+        </p>
+        <label class="pay-email-label" for="email-intermediate">Email for receipt</label>
+        <input id="email-intermediate" class="pay-email" type="email" name="email" autocomplete="email" placeholder="you@example.com" required />
+        <button type="button" class="pay-btn" data-programme="intermediate" disabled>
+          Pay $250
+        </button>
+        <p class="pay-btn-hint">Payment will be enabled after the backend is connected (Step 2).</p>
+      </article>
+
+      <!-- ADVANCED -->
+      <article class="pay-card" data-programme="advanced">
+        <div class="pay-card-top">
+          <span class="pay-badge pay-badge-advanced">Advanced</span>
+          <span class="pay-cert"><i class="fas fa-certificate"></i> Certificate included</span>
+        </div>
+        <h2>Advanced Programme</h2>
+        <p class="pay-meta"><i class="fas fa-clock"></i> 6 months</p>
+        <p class="pay-price">$500 <span>USD</span></p>
+        <p class="pay-desc">
+          For professionals seeking advanced expertise in population genomics, statistical genetics, and
+          machine-learning-driven discovery. Requires experience equivalent to the Intermediate programme.
+        </p>
+        <label class="pay-email-label" for="email-advanced">Email for receipt</label>
+        <input id="email-advanced" class="pay-email" type="email" name="email" autocomplete="email" placeholder="you@example.com" required />
+        <button type="button" class="pay-btn" data-programme="advanced" disabled>
+          Pay $500
+        </button>
+        <p class="pay-btn-hint">Payment will be enabled after the backend is connected (Step 2).</p>
+      </article>
+    </section>
+
+    <section class="pay-enrol-note" aria-label="Enrolment note">
+      <p>
+        <strong>What enrolled means:</strong> A paid seat on the selected programme. Zoom / session access
+        is sent after payment is confirmed. A certificate is only issued after payment and successful completion
+        of the programme requirements. Submitting a registration or enquiry form alone does not guarantee enrolment.
+      </p>
+    </section>
+
+    <section class="pay-refund" id="refund-policy" aria-labelledby="refund-heading">
+      <h2 id="refund-heading">Refund Policy</h2>
+      <p>
+        The Digital Genome (TDG) understands that circumstances may change. Refund requests are handled according
+        to the following terms:
+      </p>
+
+      <h3>Before training begins</h3>
+      <p>
+        Students who request cancellation before the first training session will be eligible for a full refund if
+        the request is made within seven (7) calendar days of payment. If the request is made more than seven (7)
+        calendar days after payment, a 10% administrative fee will be deducted from the amount paid, together with
+        any applicable non-recoverable transaction charges.
+      </p>
+
+      <h3>After training begins</h3>
+      <p>
+        Refunds are generally not available once the student has attended the first training session or accessed
+        substantial training materials, except where required by applicable law or approved by TDG under exceptional
+        circumstances.
+      </p>
+
+      <h3>Cancellation by TDG</h3>
+      <p>
+        If TDG cancels the programme and cannot offer a suitable alternative, the student will receive a full refund
+        of the training fee paid.
+      </p>
+
+      <h3>How to request a refund</h3>
+      <p>
+        All refund requests must be submitted in writing to
+        <a href="mailto:support@thedigitalgenome.com">support@thedigitalgenome.com</a>.
+        The request must include the student's full name, programme enrolled in, and reason for the request.
+      </p>
+
+      <h3>Refund processing time</h3>
+      <p>
+        Approved refunds will be processed within five (5) working days of approval. The time required for the funds
+        to appear in the student's account may depend on the relevant banking institution.
+      </p>
+
+      <h3>Applicable rights</h3>
+      <p>
+        This policy does not limit any consumer rights or refund entitlements that cannot lawfully be excluded.
+      </p>
+
+      <p class="pay-refund-footer">
+        Submitting a registration form does not guarantee enrolment. This policy applies to students who have paid
+        for the programme.
+      </p>
+    </section>
+  </main>
+
+  <footer class="pay-footer">
+    <p>
+      &copy; <span id="year"></span> The Digital Genome �
+      <a href="mailto:support@thedigitalgenome.com">support@thedigitalgenome.com</a> �
+      <a href="https://thedigitalgenome.com/">thedigitalgenome.com</a>
+    </p>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="pay.js"></script>
+</body>
+</html>

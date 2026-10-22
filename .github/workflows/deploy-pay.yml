@@ -1,0 +1,81 @@
+# Optional: deploy the payment static site (pay/) to its own S3 + CloudFront.
+#
+# Required GitHub Actions secrets:
+#   AWS_ACCESS_KEY_ID
+#   AWS_SECRET_ACCESS_KEY
+#   AWS_REGION                     e.g. us-east-1
+#   AWS_PAY_S3_BUCKET             payment site bucket
+#   PAY_CLOUDFRONT_DISTRIBUTION_ID
+#
+# Before first use: create the bucket + CloudFront (see docs/PAYMENTS-DEPLOY.md).
+# Set pay/config.js API_BASE_URL before or after upload.
+#
+# Manual only by default — enable automatic deploys by uncommenting "push".
+
+name: Deploy payment site
+
+on:
+  workflow_dispatch:
+  # push:
+  #   branches: [main]
+  #   paths:
+  #     - 'pay/**'
+  #     - '.github/workflows/deploy-pay.yml'
+
+concurrency:
+  group: deploy-pay-cloudfront
+  cancel-in-progress: true
+
+jobs:
+  deploy-pay:
+    name: Deploy pay/
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Stage pay files
+        run: |
+          mkdir -p dist-pay
+          cp pay/index.html pay/success.html pay/cancel.html dist-pay/
+          cp pay/styles.css pay/config.js pay/pay.js dist-pay/
+          find dist-pay -name '.DS_Store' -delete
+
+      - name: Sync to S3
+        run: |
+          aws s3 sync dist-pay "s3://${{ secrets.AWS_PAY_S3_BUCKET }}" \
+            --delete \
+            --exclude '.DS_Store' \
+            --cache-control 'public, max-age=300'
+
+          for f in index.html success.html cancel.html; do
+            aws s3 cp "dist-pay/$f" "s3://${{ secrets.AWS_PAY_S3_BUCKET }}/$f" \
+              --cache-control 'public, max-age=0, must-revalidate' \
+              --content-type 'text/html; charset=utf-8'
+          done
+
+          aws s3 cp dist-pay/config.js "s3://${{ secrets.AWS_PAY_S3_BUCKET }}/config.js" \
+            --cache-control 'public, max-age=0, must-revalidate' \
+            --content-type 'application/javascript; charset=utf-8'
+
+      - name: Invalidate CloudFront
+        run: |
+          INVALIDATION_ID=$(aws cloudfront create-invalidation \
+            --distribution-id "${{ secrets.PAY_CLOUDFRONT_DISTRIBUTION_ID }}" \
+            --paths '/*' \
+            --query 'Invalidation.Id' \
+            --output text)
+          echo "Invalidation: $INVALIDATION_ID"
+          aws cloudfront wait invalidation-completed \
+            --distribution-id "${{ secrets.PAY_CLOUDFRONT_DISTRIBUTION_ID }}" \
+            --id "$INVALIDATION_ID"
+          echo "Pay CloudFront cache refresh complete"

@@ -1,0 +1,16 @@
+{
+  "name": "tdg-pay-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Paystack payment API for The Digital Genome (AWS Lambda)",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@aws-sdk/client-ses": "^3.758.0"
+  },
+  "scripts": {
+    "zip:create-payment": "mkdir -p dist && zip -r dist/create-payment.zip src/createPayment.js src/programmes.js src/http.js src/paystack.js package.json",
+    "zip:webhook": "mkdir -p dist && zip -r dist/webhook.zip src/webhook.js src/verifyPaystack.js src/email.js package.json node_modules"
+  }
+}
