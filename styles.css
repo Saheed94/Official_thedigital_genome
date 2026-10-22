@@ -406,6 +406,33 @@ nav a.nav-pay-link:hover {
   color: #475569;
 }
 
+.service-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.service-cta-btn {
+  display: inline-block;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 8px;
+}
+
+.service-cta-pay {
+  background: #0369a1;
+  color: #fff;
+}
+
+.service-cta-pay:hover {
+  background: #0284c7;
+  color: #fff;
+}
+
 /* ---- Grid ---- */
 .grid {
   display: grid;
