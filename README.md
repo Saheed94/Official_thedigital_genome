@@ -1,6 +1,6 @@
 # The Digital Genome
 
-Marketing site and Paystack payment portal for **The Digital Genome** — bioinformatics training and genomic analysis services.
+Marketing site and Paystack payment portal for **The Digital Genome** â€” bioinformatics training and genomic analysis services.
 
 | Surface | URL (target) | Role |
 |---------|----------------|------|
@@ -28,11 +28,11 @@ Marketing site and Paystack payment portal for **The Digital Genome** — bioinfor
 
 This repository contains:
 
-1. **Static marketing website** — HTML/CSS/JS, deployed to **Amazon S3 + CloudFront**.
-2. **Separate payment frontend** (`pay/`) — programme cards, refund policy, success/cancel pages.
-3. **Serverless payment API** (`backend/`) — two **AWS Lambda** functions behind **API Gateway**, integrating **Paystack** and notifying ops via **Amazon SES**.
+1. **Static marketing website** â€” HTML/CSS/JS, deployed to **Amazon S3 + CloudFront**.
+2. **Separate payment frontend** (`pay/`) â€” programme cards, refund policy, success/cancel pages.
+3. **Serverless payment API** (`backend/`) â€” two **AWS Lambda** functions behind **API Gateway**, integrating **Paystack** and notifying ops via **Amazon SES**.
 
-Enquiry and custom analysis quotes stay on the main site (Google Forms / WhatsApp / Formspree). **Card payments only happen on the payment portal ? Paystack.**
+Enquiry and custom analysis quotes stay on the main site (Google Forms / WhatsApp / Formspree). **Card payments only happen on the payment portal â†’ Paystack.**
 
 ---
 
@@ -50,67 +50,26 @@ Prices are enforced **server-side** in `backend/src/programmes.js` (amounts in c
 
 ## AWS architecture
 
-### High-level system design
+### System design (official AWS Architecture Icons)
 
-```mermaid
-flowchart TB
-  subgraph Users["Users"]
-    Student["Student / customer"]
-    Ops["Ops — support@thedigitalgenome.com"]
-  end
+![The Digital Genome AWS architecture](docs/architecture/aws-architecture.png)
 
-  subgraph DNS["DNS — Cloudflare or Route 53"]
-    Apex["thedigitalgenome.com"]
-    PayDNS["pay.thedigitalgenome.com"]
-  end
+Diagram icons are the **official coloured AWS Architecture Icons** (sourced via [awslabs/aws-icons-for-plantuml](https://github.com/awslabs/aws-icons-for-plantuml), derived from the [AWS Architecture Icons](https://aws.amazon.com/architecture/icons/) asset package). Individual icon files live in [`docs/architecture/icons/`](docs/architecture/icons/).
 
-  subgraph AWS["AWS account — us-east-1"]
-    subgraph MainSite["Main marketing site"]
-      CF1["CloudFront<br/>distribution EVOXUTG7L53KN"]
-      S3Main["S3 bucket<br/>thedigitalgenome-…"]
-      CF1 --> S3Main
-    end
+### Services used
 
-    subgraph PaySite["Payment portal"]
-      CF2["CloudFront<br/>pay distribution"]
-      S3Pay["S3 bucket<br/>pay site"]
-      CF2 --> S3Pay
-    end
+| Icon | AWS service | Role in this project |
+|------|-------------|----------------------|
+| ![CloudFront](docs/architecture/icons/cloudfront.png) | **Amazon CloudFront** | CDN for main site and pay portal |
+| ![S3](docs/architecture/icons/s3.png) | **Amazon S3** | Static hosting origin (main + pay buckets) |
+| ![API Gateway](docs/architecture/icons/apigateway.png) | **Amazon API Gateway** | HTTP API: `/create-payment`, `/webhook` |
+| ![Lambda](docs/architecture/icons/lambda.png) | **AWS Lambda** | `create-payment` and `webhook` handlers |
+| ![SES](docs/architecture/icons/ses.png) | **Amazon SES** | Email payment alerts to support |
+| ![CloudWatch](docs/architecture/icons/cloudwatch.png) | **Amazon CloudWatch** | Lambda logs |
+| ![Route 53](docs/architecture/icons/route53.png) | **Amazon Route 53** (or external DNS) | `thedigitalgenome.com` / `pay.` records |
+| ![IAM](docs/architecture/icons/iam.png) | **AWS IAM** | Lambda execution role (logs + SES) |
 
-    subgraph API["Payment API"]
-      APIGW["API Gateway HTTP API"]
-      LCreate["Lambda<br/>tdg-create-payment"]
-      LHook["Lambda<br/>tdg-webhook"]
-      APIGW -->|"POST /create-payment"| LCreate
-      APIGW -->|"POST /webhook"| LHook
-    end
-
-    SES["Amazon SES"]
-    CW["CloudWatch Logs"]
-    LCreate --> CW
-    LHook --> CW
-    LHook --> SES
-  end
-
-  subgraph External["External services"]
-    Paystack["Paystack<br/>Checkout + Webhooks"]
-    Forms["Google Forms / Formspree / WhatsApp"]
-  end
-
-  Student --> Apex
-  Student --> PayDNS
-  Apex --> CF1
-  PayDNS --> CF2
-
-  Student -->|"Enquire / quote / support"| Forms
-  Student -->|"Make Payment"| CF2
-  CF2 -->|"POST create-payment"| APIGW
-  LCreate -->|"Initialize transaction"| Paystack
-  Student -->|"Card / bank checkout"| Paystack
-  Paystack -->|"charge.success webhook"| APIGW
-  SES -->|"Payment notification"| Ops
-  Paystack -->|"Receipt"| Student
-```
+**External (non-AWS):** Paystack â€” hosted Checkout, webhooks, and bank settlements.
 
 ### Component responsibilities
 
@@ -119,30 +78,31 @@ flowchart TB
 | **S3 + CloudFront (main)** | Host marketing pages; CI deploy on push to `main` |
 | **S3 + CloudFront (pay)** | Host payment UI only; no secrets in static files |
 | **API Gateway** | Public HTTPS entry for `/create-payment` and `/webhook` |
-| **Lambda `create-payment`** | Map programme ? amount; call Paystack Initialize Transaction; return `authorization_url` |
+| **Lambda `create-payment`** | Map programme â†’ amount; call Paystack Initialize Transaction; return `authorization_url` |
 | **Lambda `webhook`** | Verify Paystack HMAC signature; on `charge.success` email ops via SES |
 | **SES** | Send notification to `support@thedigitalgenome.com` |
 | **Paystack** | PCI checkout, settlements to company bank, customer receipts |
-| **DNS** | Apex ? main CloudFront; `pay` ? pay CloudFront (ACM cert in `us-east-1`) |
+| **DNS** | Apex â†’ main CloudFront; `pay` â†’ pay CloudFront (ACM cert in `us-east-1`) |
 
 ### Trust boundaries
 
 ```mermaid
 flowchart LR
   subgraph Public["Browser-visible"]
-    HTML["pay/*.html, config.js"]
-    PK["No secret keys"]
+    HTML["pay HTML and config.js"]
+    NoSecrets["No Paystack secret keys"]
   end
 
-  subgraph Private["AWS / secrets"]
-    SK["PAYSTACK_SECRET_KEY"]
+  subgraph Private["AWS secrets"]
     Env["Lambda environment variables"]
-    IAM["IAM roles — SES, logs"]
+    SK["PAYSTACK_SECRET_KEY"]
+    IAMRole["IAM role for SES and logs"]
   end
 
   HTML -->|"API_BASE_URL only"| APIGW["API Gateway"]
   APIGW --> Env
   Env --> SK
+  Env --> IAMRole
 ```
 
 - **Never** put `sk_test_` / `sk_live_` in `pay/` or the main site.
@@ -154,38 +114,38 @@ flowchart LR
 
 ```mermaid
 sequenceDiagram
-  actor User as Customer
-  participant Main as Main site<br/>CloudFront + S3
-  participant PayUI as Pay portal<br/>CloudFront + S3
-  participant API as API Gateway
-  participant Create as Lambda<br/>create-payment
-  participant PS as Paystack
-  participant Hook as Lambda<br/>webhook
-  participant SES as Amazon SES
-  actor Ops as support@
+  actor Customer
+  participant Main as MainSite
+  participant PayUI as PayPortal
+  participant APIGW as APIGateway
+  participant Create as CreatePaymentLambda
+  participant Paystack
+  participant Hook as WebhookLambda
+  participant SES as AmazonSES
+  actor Ops as SupportOps
 
-  User->>Main: Browse / Enquire
-  User->>Main: Click Make Payment
-  Main->>PayUI: Navigate to pay.thedigitalgenome.com
-  User->>PayUI: Choose programme + email
-  PayUI->>API: POST /create-payment
-  API->>Create: Invoke
-  Create->>Create: Lookup amount (server-side)
-  Create->>PS: Initialize transaction
-  PS-->>Create: authorization_url
-  Create-->>PayUI: JSON url
-  PayUI->>PS: Redirect to Checkout
-  User->>PS: Complete payment
-  PS->>PayUI: Redirect success.html
-  PS->>API: POST /webhook charge.success
-  API->>Hook: Invoke
+  Customer->>Main: Browse or enquire
+  Customer->>Main: Click Make Payment
+  Main->>PayUI: Open pay.thedigitalgenome.com
+  Customer->>PayUI: Choose programme and email
+  PayUI->>APIGW: POST /create-payment
+  APIGW->>Create: Invoke
+  Create->>Create: Lookup amount server-side
+  Create->>Paystack: Initialize transaction
+  Paystack-->>Create: authorization_url
+  Create-->>PayUI: Return checkout URL
+  PayUI->>Paystack: Redirect to Checkout
+  Customer->>Paystack: Complete payment
+  Paystack->>PayUI: Redirect success.html
+  Paystack->>APIGW: POST /webhook charge.success
+  APIGW->>Hook: Invoke
   Hook->>Hook: Verify x-paystack-signature
   Hook->>SES: SendEmail
   SES->>Ops: Payment notification
-  Note over Ops,User: Ops sends Zoom / cohort access manually
+  Note over Ops,Customer: Ops sends Zoom or cohort access manually
 ```
 
-**Enrolment rule:** paid (webhook confirmed) ? access. Enquiry form alone does not enrol. Certificates require payment + completion. Refunds follow the policy on the payment page.
+**Enrolment rule:** paid (webhook confirmed) â†’ access. Enquiry form alone does not enrol. Certificates require payment + completion. Refunds follow the policy on the payment page.
 
 ---
 
@@ -193,38 +153,41 @@ sequenceDiagram
 
 ```text
 TheDG_1/
-??? index.html                 # Main marketing site
-??? styles.css
-??? script.js
-??? assets/                    # Logo, images, curriculum PDFs
-??? pay/                       # Payment portal (static)
-?   ??? index.html             # Programmes + refund policy
-?   ??? success.html
-?   ??? cancel.html
-?   ??? config.js              # API_BASE_URL (no secrets)
-?   ??? pay.js
-?   ??? styles.css
-??? backend/                   # AWS Lambda source
-?   ??? src/
-?   ?   ??? createPayment.js   # POST /create-payment
-?   ?   ??? webhook.js         # POST /webhook
-?   ?   ??? programmes.js      # $100 / $250 / $500
-?   ?   ??? paystack.js
-?   ?   ??? verifyPaystack.js
-?   ?   ??? email.js           # SES
-?   ?   ??? http.js
-?   ??? env.example
-?   ??? package.json
-??? docs/
-?   ??? PAYMENTS-DEPLOY.md     # Step-by-step AWS + Paystack deploy
-??? .github/
-?   ??? workflows/
-?   ?   ??? deploy.yml         # Main site ? S3 + CloudFront
-?   ?   ??? deploy-pay.yml     # Optional pay site deploy
-?   ??? iam-deploy-policy.json
-?   ??? iam-pay-lambda-policy.json
-?   ??? iam-pay-deploy-policy.example.json
-??? README.md
+|-- index.html                 # Main marketing site
+|-- styles.css
+|-- script.js
+|-- assets/                    # Logo, images, curriculum PDFs
+|-- pay/                       # Payment portal (static)
+|   |-- index.html             # Programmes + refund policy
+|   |-- success.html
+|   |-- cancel.html
+|   |-- config.js              # API_BASE_URL (no secrets)
+|   |-- pay.js
+|   `-- styles.css
+|-- backend/                   # AWS Lambda source
+|   |-- src/
+|   |   |-- createPayment.js   # POST /create-payment
+|   |   |-- webhook.js         # POST /webhook
+|   |   |-- programmes.js      # $100 / $250 / $500
+|   |   |-- paystack.js
+|   |   |-- verifyPaystack.js
+|   |   |-- email.js           # SES
+|   |   `-- http.js
+|   |-- env.example
+|   `-- package.json
+|-- docs/
+|   |-- PAYMENTS-DEPLOY.md     # AWS + Paystack deploy runbook
+|   `-- architecture/
+|       |-- aws-architecture.png
+|       `-- icons/             # Official AWS coloured icons
+|-- .github/
+|   |-- workflows/
+|   |   |-- deploy.yml         # Main site -> S3 + CloudFront
+|   |   `-- deploy-pay.yml     # Optional pay site deploy
+|   |-- iam-deploy-policy.json
+|   |-- iam-pay-lambda-policy.json
+|   `-- iam-pay-deploy-policy.example.json
+`-- README.md
 ```
 
 ---
@@ -265,8 +228,10 @@ npm run zip:webhook
 | Target | How |
 |--------|-----|
 | Main site | GitHub Actions [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) on push to `main` |
-| Pay site | Create S3 + CloudFront, then optional [`.github/workflows/deploy-pay.yml`](.github/workflows/deploy-pay.yml) |
+| Pay site | Create S3 + CloudFront first, then optional [`.github/workflows/deploy-pay.yml`](.github/workflows/deploy-pay.yml) |
 | Lambdas + API + SES + Paystack webhook | Follow **[`docs/PAYMENTS-DEPLOY.md`](docs/PAYMENTS-DEPLOY.md)** |
+
+`deploy-pay.yml` only uploads static files to an **existing** bucket. It does **not** create AWS infrastructure. Create infra using the payments deploy guide, then optionally use the workflow for updates.
 
 Suggested region: **`us-east-1`** (matches existing main-site resources).
 
@@ -291,9 +256,10 @@ Payment portal uses a **separate** bucket and distribution (create during deploy
 
 ## Related docs
 
-- **[docs/PAYMENTS-DEPLOY.md](docs/PAYMENTS-DEPLOY.md)** — full AWS Console / Paystack setup checklist  
+- **[docs/PAYMENTS-DEPLOY.md](docs/PAYMENTS-DEPLOY.md)** â€” full AWS Console / Paystack setup checklist  
 - [Paystack test payments](https://paystack.com/docs/payments/test-payments/)  
 - [Paystack webhooks](https://paystack.com/docs/payments/webhooks/)  
+- [AWS Architecture Icons](https://aws.amazon.com/architecture/icons/)  
 
 ---
 
