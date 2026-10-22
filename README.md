@@ -5,7 +5,7 @@ Marketing site and Paystack payment portal for **The Digital Genome** — bioinf
 | Surface | URL (target) | Role |
 |---------|----------------|------|
 | Main site | [https://thedigitalgenome.com](https://thedigitalgenome.com) | Marketing, enquire, quote, contact |
-| Payment portal | [https://pay.thedigitalgenome.com](https://pay.thedigitalgenome.com) | Programme selection + Paystack Checkout |
+| Payment portal | [https://d2quxkjjff91j.cloudfront.net](https://d2quxkjjff91j.cloudfront.net/) (temp; later `pay.thedigitalgenome.com`) | Programme selection + Paystack Checkout |
 | Support | [support@thedigitalgenome.com](mailto:support@thedigitalgenome.com) | Ops, refunds, payment plans |
 
 ---
