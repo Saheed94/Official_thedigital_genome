@@ -1,51 +1,128 @@
 (function () {
   "use strict";
 
+  var PROGRAMMES = {
+    beginner: {
+      name: "Beginner Programme",
+      priceLabel: "NGN 150,000",
+      cta: "Pay NGN 150,000",
+    },
+    intermediate: {
+      name: "Intermediate Programme",
+      priceLabel: "NGN 375,000",
+      cta: "Pay NGN 375,000",
+    },
+    advanced: {
+      name: "Advanced Programme",
+      priceLabel: "NGN 750,000",
+      cta: "Pay NGN 750,000",
+    },
+  };
+
   var config = window.TDG_PAY_CONFIG || {};
   var apiBase = (config.API_BASE_URL || "").replace(/\/$/, "");
 
   var yearEl = document.getElementById("year");
-  if (yearEl) {
-    yearEl.textContent = String(new Date().getFullYear());
+  if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+  var radios = document.querySelectorAll('input[name="programme"]');
+  var checkoutBox = document.getElementById("checkoutBox");
+  var checkoutHint = document.getElementById("checkoutHint");
+  var orderSummary = document.getElementById("orderSummary");
+  var summaryName = document.getElementById("summaryName");
+  var summaryPrice = document.getElementById("summaryPrice");
+  var emailInput = document.getElementById("payerEmail");
+  var payCta = document.getElementById("payCta");
+  var payCtaLabel = document.getElementById("payCtaLabel");
+  var form = document.getElementById("checkoutForm");
+  var formStatus = document.getElementById("formStatus");
+  var formHint = document.getElementById("formHint");
+
+  var selected = "";
+
+  function setStatus(message, kind) {
+    if (!formStatus) return;
+    formStatus.textContent = message || "";
+    formStatus.classList.remove("is-error", "is-info");
+    if (kind === "error") formStatus.classList.add("is-error");
+    if (kind === "info") formStatus.classList.add("is-info");
   }
 
-  var buttons = document.querySelectorAll(".pay-btn");
-  var apiReady = Boolean(apiBase);
+  function unlockCheckout(programmeKey) {
+    selected = programmeKey;
+    var info = PROGRAMMES[programmeKey];
+    if (!info) return;
 
-  buttons.forEach(function (btn) {
-    var card = btn.closest(".pay-card");
-    var hint = card ? card.querySelector(".pay-btn-hint") : null;
+    if (checkoutBox) checkoutBox.classList.remove("is-locked");
+    if (checkoutHint) {
+      checkoutHint.textContent = "Enter your email, then continue to Paystack.";
+    }
+    if (orderSummary) orderSummary.hidden = false;
+    if (summaryName) summaryName.textContent = info.name;
+    if (summaryPrice) summaryPrice.textContent = info.priceLabel;
 
-    if (apiReady) {
-      btn.disabled = false;
-      if (hint) {
-        hint.textContent = "You will be redirected to Paystack’s secure checkout.";
+    if (emailInput) {
+      emailInput.disabled = false;
+      emailInput.value = "";
+      emailInput.focus();
+    }
+
+    if (payCta) {
+      payCta.disabled = !apiBase;
+      if (payCtaLabel) {
+        payCtaLabel.textContent = apiBase
+          ? info.cta
+          : "Payment API not configured";
       }
     }
 
-    btn.addEventListener("click", function () {
-      if (!apiReady) {
-        setStatus(card, "Payment backend is not connected yet.", "error");
+    if (formHint && apiBase) {
+      formHint.textContent =
+        "You will leave this page for Paystack Checkout. We never store card details.";
+    }
+
+    setStatus("", null);
+
+    var panel = document.getElementById("checkoutPanel");
+    if (panel) {
+      panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+  }
+
+  radios.forEach(function (radio) {
+    radio.addEventListener("change", function () {
+      if (radio.checked) unlockCheckout(radio.value);
+    });
+  });
+
+  if (form) {
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      if (!selected) {
+        setStatus("Please select a programme first.", "error");
         return;
       }
 
-      var programme = btn.getAttribute("data-programme");
-      var emailInput = card ? card.querySelector(".pay-email") : null;
-      var email = emailInput ? emailInput.value.trim() : "";
+      if (!apiBase) {
+        setStatus("Payment backend is not connected yet.", "error");
+        return;
+      }
 
-      if (!email || !isValidEmail(email)) {
-        setStatus(card, "Enter a valid email for your receipt.", "error");
+      var email = emailInput ? emailInput.value.trim() : "";
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        setStatus("Enter a valid email for your receipt.", "error");
         if (emailInput) emailInput.focus();
         return;
       }
 
-      btn.disabled = true;
-      setStatus(card, "Redirecting to Paystack…", "info");
+      payCta.disabled = true;
+      setStatus("Redirecting to Paystack...", "info");
 
       fetch(apiBase + "/create-payment", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ programme: programme, email: email }),
+        body: JSON.stringify({ programme: selected, email: email }),
       })
         .then(function (res) {
           return res.json().then(function (data) {
@@ -57,43 +134,19 @@
             var msg =
               (result.data && result.data.error) ||
               "Could not start payment. Please try again or contact support.";
-            setStatus(card, msg, "error");
-            btn.disabled = false;
+            setStatus(msg, "error");
+            payCta.disabled = false;
             return;
           }
           window.location.href = result.data.authorization_url;
         })
         .catch(function () {
           setStatus(
-            card,
             "Network error. Check your connection or contact support.",
             "error"
           );
-          btn.disabled = false;
+          payCta.disabled = false;
         });
     });
-  });
-
-  function isValidEmail(value) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-  }
-
-  function setStatus(card, message, kind) {
-    if (!card) return;
-    var el = card.querySelector(".pay-status");
-    if (!el) {
-      el = document.createElement("p");
-      el.className = "pay-status";
-      var hint = card.querySelector(".pay-btn-hint");
-      if (hint && hint.parentNode) {
-        hint.parentNode.insertBefore(el, hint.nextSibling);
-      } else {
-        card.appendChild(el);
-      }
-    }
-    el.textContent = message;
-    el.classList.remove("is-error", "is-info");
-    if (kind === "error") el.classList.add("is-error");
-    if (kind === "info") el.classList.add("is-info");
   }
 })();

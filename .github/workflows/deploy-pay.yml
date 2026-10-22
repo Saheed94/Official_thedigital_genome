@@ -48,6 +48,7 @@ jobs:
           mkdir -p dist-pay
           cp pay/index.html pay/success.html pay/cancel.html dist-pay/
           cp pay/styles.css pay/config.js pay/pay.js dist-pay/
+          if [ -d pay/assets ]; then cp -R pay/assets dist-pay/assets; fi
           find dist-pay -name '.DS_Store' -delete
 
       - name: Sync to S3
