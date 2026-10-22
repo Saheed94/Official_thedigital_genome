@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout — The Digital Genome</title>
+  <meta name="description" content="Secure Paystack checkout for The Digital Genome bioinformatics training programmes." />
+  <meta name="robots" content="noindex" />
+  <link rel="canonical" href="https://d2quxkjjff91j.cloudfront.net/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="icon" type="image/png" href="https://thedigitalgenome.com/assets/favicon.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-mesh" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="https://thedigitalgenome.com/">
+      <img src="https://thedigitalgenome.com/assets/logo.png" alt="" class="brand-logo" />
+      <span>The Digital Genome</span>
+    </a>
+    <a class="header-link" href="https://thedigitalgenome.com/">
+      <i class="fas fa-arrow-left"></i> Back to site
+    </a>
+  </header>
+
+  <main class="checkout">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow"><i class="fas fa-lock"></i> Protected by Paystack</p>
+        <h1>The Digital Genome</h1>
+        <p class="hero-title">Complete your training enrolment</p>
+        <p class="hero-sub">
+          Select a programme, enter your email, then pay securely. Your seat is confirmed only after payment succeeds.
+          Need help? <a href="mailto:support@thedigitalgenome.com">support@thedigitalgenome.com</a>
+        </p>
+        <div class="trust-row">
+          <span><i class="fas fa-shield-halved"></i> Bank-grade checkout</span>
+          <span><i class="fas fa-certificate"></i> Certificate included</span>
+          <span><i class="fas fa-headset"></i> Human support</span>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="card-stack" aria-hidden="true">
+          <div class="viz-card viz-card-back"></div>
+          <div class="viz-card viz-card-mid"></div>
+          <img class="viz-card-img" src="assets/pay-hero-card.jpg" alt="Secure payment card illustration" width="520" height="292" />
+        </div>
+        <p class="hero-visual-caption">Cards stay on Paystack — we never see your card number.</p>
+      </div>
+    </section>
+
+    <!-- STEP 1: SELECT -->
+    <section class="panel" aria-labelledby="step1-title">
+      <div class="step-label">
+        <span class="step-num">1</span>
+        <div>
+          <h2 id="step1-title">Choose your programme</h2>
+          <p>Tap one option to continue. Email and payment unlock after you select.</p>
+        </div>
+      </div>
+
+      <div class="plan-grid" role="radiogroup" aria-label="Training programmes">
+        <label class="plan" data-programme="beginner">
+          <input type="radio" name="programme" value="beginner" />
+          <span class="plan-check" aria-hidden="true"><i class="fas fa-check"></i></span>
+          <span class="plan-badge">Beginner</span>
+          <span class="plan-name">Beginner Programme</span>
+          <span class="plan-meta"><i class="fas fa-clock"></i> 4 weeks</span>
+          <span class="plan-price">NGN 150,000</span>
+          <span class="plan-desc">Foundations in genomics, Linux, Python, and biological file formats.</span>
+        </label>
+
+        <label class="plan plan-featured" data-programme="intermediate">
+          <input type="radio" name="programme" value="intermediate" />
+          <span class="plan-ribbon">Most popular</span>
+          <span class="plan-check" aria-hidden="true"><i class="fas fa-check"></i></span>
+          <span class="plan-badge plan-badge-mid">Intermediate</span>
+          <span class="plan-name">Intermediate Programme</span>
+          <span class="plan-meta"><i class="fas fa-clock"></i> 8 weeks</span>
+          <span class="plan-price">NGN 375,000</span>
+          <span class="plan-desc">Hands-on NGS workflows and stronger practical analytical skills.</span>
+        </label>
+
+        <label class="plan" data-programme="advanced">
+          <input type="radio" name="programme" value="advanced" />
+          <span class="plan-check" aria-hidden="true"><i class="fas fa-check"></i></span>
+          <span class="plan-badge plan-badge-adv">Advanced</span>
+          <span class="plan-name">Advanced Programme</span>
+          <span class="plan-meta"><i class="fas fa-clock"></i> 6 months</span>
+          <span class="plan-price">NGN 750,000</span>
+          <span class="plan-desc">Population genomics, statistical genetics, and ML-driven discovery.</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- STEP 2: PAY (locked until selection) -->
+    <section class="panel checkout-panel" id="checkoutPanel" aria-labelledby="step2-title">
+      <div class="step-label">
+        <span class="step-num">2</span>
+        <div>
+          <h2 id="step2-title">Pay securely</h2>
+          <p id="checkoutHint">Select a programme above to unlock checkout.</p>
+        </div>
+      </div>
+
+      <div class="checkout-box is-locked" id="checkoutBox">
+        <div class="checkout-lock" id="checkoutLock" aria-hidden="false">
+          <i class="fas fa-lock"></i>
+          <p>Choose a programme first to enter your email and pay.</p>
+        </div>
+
+        <form class="checkout-form" id="checkoutForm" novalidate>
+          <div class="summary" id="orderSummary" hidden>
+            <p class="summary-label">You are paying for</p>
+            <p class="summary-name" id="summaryName">—</p>
+            <p class="summary-price" id="summaryPrice">—</p>
+          </div>
+
+          <label class="field-label" for="payerEmail">Email for receipt &amp; enrolment</label>
+          <input
+            id="payerEmail"
+            class="field-input"
+            type="email"
+            name="payer-email-unique"
+            autocomplete="off"
+            autocapitalize="off"
+            spellcheck="false"
+            inputmode="email"
+            placeholder="name@email.com"
+            disabled
+            required
+          />
+
+          <button type="submit" class="pay-cta" id="payCta" disabled>
+            <span id="payCtaLabel">Select a programme to continue</span>
+            <i class="fas fa-arrow-right"></i>
+          </button>
+          <p class="form-hint" id="formHint">You will leave this page for Paystack Checkout. We never store card details.</p>
+          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- Enrol note -->
+    <aside class="note-strip">
+      <i class="fas fa-circle-info"></i>
+      <div>
+        <strong>Enrolment = paid seat.</strong>
+        Zoom access is sent after payment confirmation. Certificates require payment and programme completion.
+        An enquiry form alone does not enrol you.
+      </div>
+    </aside>
+
+    <!-- Refund -->
+    <section class="refund" id="refund-policy" aria-labelledby="refund-heading">
+      <div class="refund-intro">
+        <p class="eyebrow">Flexible &amp; fair</p>
+        <h2 id="refund-heading">Refund policy</h2>
+        <p>Clear terms so you can enrol with confidence.</p>
+      </div>
+      <div class="refund-grid">
+        <article class="refund-card">
+          <i class="fas fa-calendar-check"></i>
+          <h3>Before training starts</h3>
+          <p>Full refund within 7 days of payment. After 7 days: 10% admin fee + non-recoverable transaction charges.</p>
+        </article>
+        <article class="refund-card">
+          <i class="fas fa-chalkboard-user"></i>
+          <h3>After training starts</h3>
+          <p>Generally no refund once you attend session one or access substantial materials, except as required by law.</p>
+        </article>
+        <article class="refund-card">
+          <i class="fas fa-hand-holding-heart"></i>
+          <h3>If we cancel</h3>
+          <p>If TDG cancels and cannot offer an alternative, you receive a full refund of the fee paid.</p>
+        </article>
+        <article class="refund-card">
+          <i class="fas fa-envelope-open-text"></i>
+          <h3>How to request</h3>
+          <p>Email <a href="mailto:support@thedigitalgenome.com">support@thedigitalgenome.com</a> with name, programme, and reason. Approved refunds in 5 working days.</p>
+        </article>
+      </div>
+      <details class="refund-legal">
+        <summary>Full legal wording</summary>
+        <p>
+          This policy does not limit consumer rights that cannot lawfully be excluded.
+          Registration forms do not guarantee enrolment. This policy applies to students who have paid.
+        </p>
+      </details>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>
+      &copy; <span id="year"></span> The Digital Genome
+      · <a href="mailto:support@thedigitalgenome.com">support@thedigitalgenome.com</a>
+      · <a href="https://thedigitalgenome.com/">thedigitalgenome.com</a>
+    </p>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="pay.js"></script>
+</body>
+</html>

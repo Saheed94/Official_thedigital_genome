@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payment received — The Digital Genome</title>
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="icon" type="image/png" href="https://thedigitalgenome.com/assets/favicon.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-mesh" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="brand" href="https://thedigitalgenome.com/">
+      <img src="https://thedigitalgenome.com/assets/logo.png" alt="" class="brand-logo" />
+      <span>The Digital Genome</span>
+    </a>
+    <a class="header-link" href="index.html"><i class="fas fa-arrow-left"></i> Checkout</a>
+  </header>
+  <main class="checkout">
+    <div class="pay-result">
+      <div class="pay-result-icon success" aria-hidden="true"><i class="fas fa-circle-check"></i></div>
+      <h1>Payment received</h1>
+      <p>Thank you. Your payment is being confirmed. You should receive a Paystack receipt, and our team will follow up with Zoom / cohort access details.</p>
+      <p>If you do not hear from us within 24 hours, contact <a href="mailto:support@thedigitalgenome.com">support@thedigitalgenome.com</a> with your full name and programme.</p>
+      <div class="pay-result-actions">
+        <a class="primary" href="https://thedigitalgenome.com/">Return to main site</a>
+        <a class="secondary" href="index.html">Back to checkout</a>
+      </div>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> The Digital Genome · <a href="mailto:support@thedigitalgenome.com">support@thedigitalgenome.com</a></p>
+  </footer>
+  <script>document.getElementById("year").textContent = String(new Date().getFullYear());</script>
+</body>
+</html>

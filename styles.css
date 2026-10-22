@@ -89,6 +89,17 @@ nav a:hover {
   background: #e0f2fe;
 }
 
+nav a.nav-pay-link {
+  background: #0369a1;
+  color: #fff;
+  font-weight: 600;
+}
+
+nav a.nav-pay-link:hover {
+  background: #0284c7;
+  color: #fff;
+}
+
 /* Hamburger (mobile) */
 .nav-toggle {
   display: none;
@@ -144,6 +155,25 @@ nav a:hover {
 .hero-btn:hover {
   background: #0284c7;
   transform: translateY(-2px);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-btn-secondary {
+  background: #fff;
+  color: #0369a1;
+  border: 2px solid #0369a1;
+}
+
+.hero-btn-secondary:hover {
+  background: #e0f2fe;
+  color: #0369a1;
 }
 
 /* ---- About Section ---- */
@@ -802,13 +832,26 @@ textarea {
   font-size: 15px;
 }
 
-/* Enroll button */
+/* Enroll / pay buttons */
 .tp-enroll-btn {
   margin-top: 0;
   width: 100%;
   text-align: center;
   padding: 12px;
   font-size: 15px;
+}
+
+.tp-enquire-link {
+  display: block;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: #0369a1;
+  text-decoration: none;
+}
+
+.tp-enquire-link:hover {
+  text-decoration: underline;
 }
 
 /* ==============================================
@@ -1071,6 +1114,14 @@ nav a.nav-active {
   gap: 7px;
 }
 
+.sticky-enroll-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .sticky-enroll-btn {
   margin-top: 0;
   padding: 10px 24px;
@@ -1078,9 +1129,22 @@ nav a.nav-active {
   white-space: nowrap;
 }
 
+.sticky-enquire-link {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0369a1;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.sticky-enquire-link:hover {
+  text-decoration: underline;
+}
+
 @media (max-width: 480px) {
   .sticky-enroll-inner span { display: none; }
-  .sticky-enroll-btn { width: 100%; text-align: center; }
+  .sticky-enroll-actions { width: 100%; }
+  .sticky-enroll-btn { flex: 1; text-align: center; }
 }
 
 /* ==============================================

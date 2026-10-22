@@ -1,3 +1,11 @@
 .DS_Store
 **/.DS_Store
 .github/iam-deploy-policy.local.json
+
+# Payment backend
+backend/dist/
+backend/node_modules/
+backend/.env
+backend/.env.*
+!**/.env.example
+**/env.local
